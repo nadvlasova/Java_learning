@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class MainApp {
     // Создание игрового поля.
     public static char[][] map;
-    public static final int SIZE = 3; // Размер поля
+    // Переменную, константу final изменить в программе нельзя! Называем большими буквами
+    // и используем нижнее подчеркивание, это только для final!
+    public static final int SIZE = 3; // Размер поля.
     public static final int DOTS_TO_WIN = 3; // Количество фишек для победы.
     // Ячейки поля.
     public static final char DOT_EMPTY = '*';
@@ -24,8 +26,12 @@ public class MainApp {
     }
 
     // Вывод поля в консоль.
+    // Интересный момент: массив map[x, y] в цикле наполняется x == j y == i, поэтому либо
+    // в методе printMap при выводе на печать сразу переворачиваем эти переменные,
+    // либо по всей программе обозначения данных массива будут меняться, короче совсем запуталась :(
     public static void printMap() {
-        for (int i = 0; i < SIZE; i++) {
+        System.out.print("  ");
+        for (int i = 1; i <= SIZE; i++) {
             System.out.print(i + " ");
         }
         System.out.println();
@@ -54,9 +60,13 @@ public class MainApp {
 
     // Проверка ячеек.
     public static boolean isCellValid(int x, int y) {
-        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
-        if (map[y][x] == DOT_EMPTY) return true;
-        return false;
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
+            return false;
+        }
+        if (map[y][x] != DOT_EMPTY) {
+            return false;
+        }
+        return true;
     }
 
     // Ход компьютера.
